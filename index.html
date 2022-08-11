@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Node Presentacion</title>
+</head>
+<body>
+    <div style="border-style: dashed; border-radius: 5px; padding-bottom: 10px;">
+        <h1 style="color: rgb(2, 164, 24);">Servidor Node</h1>
+        <h2 id="textServer"></h2>
+    </div>
+
+    <div style="margin-bottom: 10px; border-style: dashed; border-radius: 5px; padding-bottom: 10px; margin-top: 10px;" >
+        <h1 style="color: rgb(1, 82, 11)">Servidor Local</h1>
+        <p id="textLocal"></p>
+    </div>
+
+    <form action="/subir" method="get">
+        <input type="text" name="str" id="str">
+        <input  type="submit" onclick="textLocal();" value="Enviar">
+    </form>
+</body>
+<script>
+    function textLocal() {
+        let texto = document.getElementById("str").value;
+        let oldText = document.getElementById("textLocal").innerHTML
+        document.getElementById("textLocal").innerHTML = oldText + texto;
+        console.log(texto);
+    }
+
+    setInterval(async () => {
+        let str = await axios.get('/bajar');
+        document.getElementById('textServer').innerHTML = str.data;
+    }, 1*1000);
+</script>
+</html>
